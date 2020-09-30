@@ -9,7 +9,11 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "cookieparser": "^0.1.0",
     "core-js": "^3.6.5",
+    "firebase": "^7.21.1",
+    "js-cookie": "^2.2.1",
+    "jwt-decode": "^3.0.0",
     "nuxt": "^2.14.5"
   },
   "devDependencies": {
