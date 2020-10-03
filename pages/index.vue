@@ -1,56 +1,31 @@
 <template>
-  <v-container grid-list-md>
-    <div class="text-center">
-      <v-form @submit.prevent>
-        <v-text-field
-          v-model="account.email"
-          label="Email"
-          id="nuxtfire-email"
-        ></v-text-field>
-        <v-text-field
-          v-model="account.password"
-          label="Enter your password"
-          hint="At least 8 characters"
-        ></v-text-field>
-        <v-btn color="primary" @click="signin()">SignIn</v-btn>
-        <div class="alert alert-danger" v-if="isError">
-          <p class="mb-0">{{ errMsg }}</p>
-        </div>
-      </v-form>
+  <v-container>
+    <div class="d-flex justify-center align-center">
+      <div>
+        <h1>😍 WELCOME TO PONTEP RESTAURANT 😍</h1>
+      </div>
+    </div>
+    <div class="d-flex justify-center align-center pt-10">
+      <p>Please sign in to use application.</p>
+    </div>
+    <div class="d-flex justify-center align-center pt-10">
+      <p>
+        For more information or source code, please go to
+        <a href="https://www.github.com/pontep"
+          >github/pontep
+          <v-avatar class="mr-10" color="grey darken-1" size="32">
+            <img
+              src="https://avatars0.githubusercontent.com/u/24294686?s=460&v=4"
+              alt="pontep"
+            /> </v-avatar
+        ></a>
+      </p>
     </div>
   </v-container>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      account: {
-        email: '',
-        password: '',
-      },
-      isError: false,
-      errMsg: '',
-    }
-  },
-  methods: {
-    signin() {
-      // TODO: add parsing of data
-      this.$store
-        .dispatch('users/login', this.account)
-        .then(() => {
-          this.$router.push('/admin')
-        })
-        .catch((error) => {
-          this.isError = true
-          this.errMsg = error.code
-          setTimeout(() => {
-            this.isError = false
-          }, 5000)
-        })
-    },
-  },
-}
+export default {}
 </script>
 
 <style></style>

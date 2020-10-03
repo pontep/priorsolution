@@ -2,10 +2,17 @@
   <v-app id="inspire">
     <v-app-bar app color="white" flat>
       <v-container class="py-0 fill-height">
-        <v-avatar class="mr-10" color="grey darken-1" size="32"></v-avatar>
+        <v-avatar class="mr-10" color="grey darken-1" size="32">
+          <img
+            src="https://avatars0.githubusercontent.com/u/24294686?s=460&v=4"
+            alt="John"
+          />
+        </v-avatar>
 
-        <v-btn v-for="link in links" :key="link" text>
-          {{ link }}
+        <span><h4>PONTEP RESTAURANT</h4></span>
+
+        <v-btn v-for="item in navigations" :key="item.title" text :to="item.to">
+          {{ item.title }}
         </v-btn>
 
         <v-spacer></v-spacer>
@@ -61,7 +68,17 @@
 <script>
 export default {
   data: () => ({
-    links: ['Dashboard', 'Messages', 'Profile', 'Updates'],
+    // links: ['Dashboard', 'Messages', 'Profile', 'Updates'],
+    navigations: [
+      {
+        title: 'Index',
+        to: '/',
+      },
+      {
+        title: 'Login',
+        to: '/login',
+      },
+    ],
   }),
 }
 </script>
