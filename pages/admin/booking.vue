@@ -15,7 +15,16 @@
           label="เบอร์โทรศัพท์"
           prepend-inner-icon="mdi-phone"
           v-model="booking.phone"
-        ></v-text-field>
+        >
+          <template v-slot:progress>
+            <v-progress-linear
+              :value="progress"
+              :color="color"
+              absolute
+              height="7"
+            ></v-progress-linear>
+          </template>
+        </v-text-field>
 
         <v-row>
           <v-col>
@@ -38,22 +47,20 @@
           </v-col>
         </v-row>
         <v-row justify="center">
-          <v-col>
-            <div class="text-center">
-              <v-date-picker
-                year-icon="mdi-food"
-                full-width
-                v-model="booking.date"
-                elevation="12"
-              ></v-date-picker>
-            </div>
-          </v-col>
+          <div class="text-center">
+            <v-date-picker
+              year-icon="mdi-food"
+              full-width
+              v-model="booking.date"
+              elevation="12"
+            ></v-date-picker>
+          </div>
         </v-row>
       </v-form>
 
       <v-divider></v-divider>
       <v-card-actions>
-        <v-btn text color="primary">Save</v-btn>
+        <v-btn x-large block text color="primary">Save</v-btn>
       </v-card-actions>
     </v-card>
   </v-container>
@@ -69,7 +76,7 @@ export default {
         seat: 1,
         time: undefined,
         date: undefined,
-        phone: undefined,
+        phone: '',
       },
       times: [
         '10:00',
@@ -86,6 +93,7 @@ export default {
     }
   },
   mounted() {},
+
   methods: {},
 }
 </script>
