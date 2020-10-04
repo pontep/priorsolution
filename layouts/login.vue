@@ -11,9 +11,9 @@
 
         <span><h4>PONTEP RESTAURANT</h4></span>
 
-        <v-btn v-for="item in navigations" :key="item.title" text :to="item.to">
+        <!-- <v-btn v-for="item in navigations" :key="item.title" text :to="item.to">
           {{ item.title }}
-        </v-btn>
+        </v-btn> -->
 
         <v-spacer></v-spacer>
 
@@ -43,18 +43,30 @@
         <v-row>
           <v-col cols="2">
             <v-sheet rounded="lg">
-              <v-list color="transparent">
-                <v-list-item v-for="n in 5" :key="n" link>
-                  <v-list-item-content>
-                    <v-list-item-title> List Item {{ n }} </v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
+              <v-list>
+                <v-list-item-group mandatory color="primary" v-model="model">
+                  <v-list-item
+                    v-for="(item, i) in navigations"
+                    :key="i"
+                    link
+                    @click="handleTo(item.to)"
+                  >
+                    <v-list-item-icon>
+                      <v-icon v-text="item.icon"></v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                      <v-list-item-title
+                        v-text="item.title"
+                      ></v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list-item-group>
 
                 <v-divider class="my-2"></v-divider>
 
                 <v-list-item link color="grey lighten-4">
                   <v-list-item-content>
-                    <v-list-item-title> Refresh </v-list-item-title>
+                    <v-list-item-title>About</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </v-list>
@@ -81,30 +93,37 @@ import Cookie from 'js-cookie'
 export default {
   data: () => ({
     loading: false,
+    model: undefined,
     // links: ['Dashboard', 'Messages', 'Profile', 'Updates'],
     navigations: [
       {
-        title: 'Index',
+        title: 'หน้าหลัก',
         to: '/',
+        icon: 'mdi-home',
       },
       {
-        title: 'Login',
-        to: '/login',
+        title: 'GitHub repository',
+        to: 'https://github.com/pontep/priorsolution/',
+        icon: 'mdi-github',
+      },
+      {
+        title: 'Facebook',
+        to: 'https://www.facebook.com/pontepthaweesup/',
+        icon: 'mdi-facebook',
       },
     ],
   }),
+  mounted() {
+    var currentUrl = window.location.pathname
+    this.model = this.navigations
+      .map((e) => {
+        return e.to
+      })
+      .indexOf(currentUrl)
+  },
   methods: {
-    async signout() {
-      try {
-        this.loading = true
-        await auth.signOut()
-        await Cookie.remove('access_token')
-        location.href = '/'
-      } catch (e) {
-        console.log(e)
-      } finally {
-        this.loading = false
-      }
+    handleTo(i) {
+      this.$router.push(i)
     },
   },
 }
