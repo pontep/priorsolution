@@ -94,11 +94,11 @@ export default {
       },
       {
         title: 'จองร้านอาหาร',
-        to: '/booking',
+        to: '/admin/booking',
       },
       {
         title: 'แสดงรายการจอง',
-        to: '/showbook',
+        to: '/admin/showbook',
       },
     ],
   }),

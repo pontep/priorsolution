@@ -7,8 +7,6 @@
 </template>
 
 <script>
-import { auth } from '@/services/firebase'
-import Cookie from 'js-cookie'
 export default {
   data() {
     return {
