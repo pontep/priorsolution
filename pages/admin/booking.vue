@@ -5,7 +5,7 @@
         <v-icon class="mx-2">mdi-wallet-plus-outline</v-icon>
         <span>เพิ่มการจอง</span>
       </v-card-title>
-      <v-form class="px-10">
+      <v-form class="px-10" ref="form" v-model="valid" lazy-validation>
         <v-text-field
           :rules="nameRules"
           label="ชื่อผู้จอง"
@@ -76,6 +76,7 @@ import { db } from '@/services/firebase'
 export default {
   data() {
     return {
+      valid: true,
       nameRules: [
         (v) => !!v || 'Name is required',
         // (v) => (v && v.length <= 10) || 'Name must be less than 10 characters',
@@ -115,20 +116,36 @@ export default {
   mounted() {},
 
   methods: {
+    validate() {
+      return this.$refs.form.validate()
+    },
+    reset() {
+      this.$refs.form.reset()
+      this.booking.date = undefined
+    },
     async save() {
-      this.loading = true
-      await db
-        .collection('bookings')
-        .add(this.booking)
-        .then(function (docRef) {
-          console.log('Document written with ID: ', docRef.id)
-        })
-        .catch(function (error) {
-          console.error('Error adding document: ', error)
-        })
-        .finally(() => {
-          this.loading = false
-        })
+      if (this.validate()) {
+        if (this.booking.date == undefined) {
+          alert('Please select date')
+        } else {
+          this.loading = true
+          await db
+            .collection('bookings')
+            .add(this.booking)
+            .then(function (docRef) {
+              console.log('Document written with ID: ', docRef.id)
+              alert('Save booking successfully.')
+              // booking.vue?8d2a:141 Error adding document:  TypeError: Cannot read property 'reset' of undefined
+              this.reset()
+            })
+            .catch(function (error) {
+              console.error('Error adding document: ', error)
+            })
+            .finally(() => {
+              this.loading = false
+            })
+        }
+      }
     },
   },
 }
