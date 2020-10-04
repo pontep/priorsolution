@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    >
     <v-row justify="center" no-gutters>
       <v-col cols="4">
         <v-card outlined class="mx-auto" max-width="400">
@@ -71,6 +72,7 @@
 </template>
 
 <script>
+const moment = require('moment') // require
 export default {
   data() {
     return {
@@ -94,27 +96,30 @@ export default {
     }
   },
   mounted() {
-    this.getAllSpecifiedBookings()
+    this.getAllBookingsBySpecifiedDate()
   },
   created() {
     this.initialize()
   },
   methods: {
-    getAllSpecifiedBookings() {
+    getAllBookingsBySpecifiedDate() {
       this.arrayEvents = this.temp.map((x) => {
-        const date = new Date(x.date).console.log(
-          date.toISOString().substr(0, 10)
-        )
-        return date
+        return moment(x.date).format().substr(0, 10)
       })
     },
-    getBookingsByDate() {
+    async getBookingsByDate() {
       //   alert(this.selectedDate)
       this.loading = true
-      setTimeout(() => {
-        this.initialize()
+      await setTimeout(() => {
+        var tmp = []
+        this.temp.forEach((x) => {
+          if (this.selectedDate === x.date) {
+            tmp.push(x)
+          }
+        })
+        this.bookings = tmp
         this.loading = false
-      }, 1000)
+      }, 200)
     },
     initialize() {
       this.temp = [
@@ -122,7 +127,7 @@ export default {
           name: 'คุณพรเทพ ทวีทรัพย์',
           seat: 4,
           time: '10:00',
-          date: '2020-10-4',
+          date: '2020-10-04',
           phone: '0952931668',
           completed: false,
         },
@@ -130,7 +135,7 @@ export default {
           name: 'คุณเกศติยา เมืองแก้ว',
           seat: 2,
           time: '17:00',
-          date: '2020-10-4',
+          date: '2020-10-04',
           phone: '0971031369',
           completed: false,
         },
@@ -138,11 +143,12 @@ export default {
           name: 'คุณเจตุพนน์ ศรีภูธร',
           seat: 12,
           time: '18:00',
-          date: '2020-10-7',
+          date: '2020-10-07',
           phone: '0912345678',
           completed: false,
         },
       ]
+      console.log('init complete')
     },
   },
 }
