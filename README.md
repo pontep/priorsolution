@@ -1,3 +1,7 @@
+# priorsolution
+
+Application for trainee exam.
+
 # nuxt-fire-auth
 
 ## Build Setup
