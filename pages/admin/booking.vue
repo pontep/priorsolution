@@ -7,28 +7,23 @@
       </v-card-title>
       <v-form class="px-10">
         <v-text-field
+          :rules="nameRules"
           label="ชื่อผู้จอง"
           v-model="booking.name"
           prepend-inner-icon="mdi-account"
         ></v-text-field>
         <v-text-field
+          :rules="phoneRules"
           label="เบอร์โทรศัพท์"
           prepend-inner-icon="mdi-phone"
           v-model="booking.phone"
         >
-          <template v-slot:progress>
-            <v-progress-linear
-              :value="progress"
-              :color="color"
-              absolute
-              height="7"
-            ></v-progress-linear>
-          </template>
         </v-text-field>
 
         <v-row>
           <v-col>
             <v-text-field
+              :rules="seatRules"
               outlined
               prepend-inner-icon="mdi-seat"
               label="จำนวนที่นั่ง"
@@ -38,6 +33,7 @@
           </v-col>
           <v-col>
             <v-select
+              :rules="[(v) => !!v || 'Item is required']"
               prepend-inner-icon="mdi-clock"
               v-model="booking.time"
               :items="times"
@@ -80,6 +76,20 @@ import { db } from '@/services/firebase'
 export default {
   data() {
     return {
+      nameRules: [
+        (v) => !!v || 'Name is required',
+        // (v) => (v && v.length <= 10) || 'Name must be less than 10 characters',
+      ],
+
+      phoneRules: [
+        (v) => !!v || 'Phone is required',
+        (v) => (v && v.length == 10) || 'Phone must be 10 characters',
+      ],
+      seatRules: [
+        (v) => !!v || 'Seat is required',
+        (v) => (v && v >= 1) || 'Seat must be greater equal 1 seat',
+      ],
+
       loading: false,
       booking: {
         name: '',
