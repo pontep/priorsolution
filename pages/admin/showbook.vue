@@ -102,6 +102,15 @@ export default {
     this.initialize()
   },
   methods: {
+    deleteItem(item) {
+      //   console.log(item)
+      var index = this.bookings
+        .map((x) => {
+          return x.name
+        })
+        .indexOf(item.name)
+      this.bookings.splice(index, 1)
+    },
     getAllBookingsBySpecifiedDate() {
       this.arrayEvents = this.temp.map((x) => {
         return moment(x.date).format().substr(0, 10)
