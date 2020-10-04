@@ -9,6 +9,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^5.12.2",
     "cookieparser": "^0.1.0",
     "core-js": "^3.6.5",
     "firebase": "^7.21.1",
