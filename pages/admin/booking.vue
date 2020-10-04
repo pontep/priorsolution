@@ -6,15 +6,22 @@
         <span>เพิ่มการจอง</span>
       </v-card-title>
       <v-form class="px-10">
-        <v-text-field label="ชื่อผู้จอง" v-model="booking.name"></v-text-field>
+        <v-text-field
+          label="ชื่อผู้จอง"
+          v-model="booking.name"
+          prepend-inner-icon="mdi-account"
+        ></v-text-field>
         <v-text-field
           label="เบอร์โทรศัพท์"
+          prepend-inner-icon="mdi-phone"
           v-model="booking.phone"
         ></v-text-field>
 
         <v-row>
           <v-col>
             <v-text-field
+              outlined
+              prepend-inner-icon="mdi-seat"
               label="จำนวนที่นั่ง"
               v-model="booking.seat"
               type="number"
@@ -22,6 +29,7 @@
           </v-col>
           <v-col>
             <v-select
+              prepend-inner-icon="mdi-clock"
               v-model="booking.time"
               :items="times"
               label="เวลา"
@@ -32,7 +40,12 @@
         <v-row justify="center">
           <v-col>
             <div class="text-center">
-              <v-date-picker v-model="booking.date"></v-date-picker>
+              <v-date-picker
+                year-icon="mdi-food"
+                full-width
+                v-model="booking.date"
+                elevation="12"
+              ></v-date-picker>
             </div>
           </v-col>
         </v-row>
