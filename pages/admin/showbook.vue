@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row justify="center">
+    <v-row justify="center" no-gutters>
       <v-col cols="4">
         <v-card outlined class="mx-auto" max-width="400">
           <v-card-title>
@@ -14,6 +14,8 @@
               full-width
               v-model="selectedDate"
               @click:date="getBookingsByDate()"
+              :events="arrayEvents"
+              event-color="green lighten-1"
             ></v-date-picker>
           </div>
           <v-divider></v-divider>
@@ -59,12 +61,12 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-row justify="center">
+    <!-- <v-row justify="center">
       <pre>
             {{ bookings }}
         </pre
       >
-    </v-row>
+    </v-row> -->
   </v-container>
 </template>
 
@@ -72,6 +74,7 @@
 export default {
   data() {
     return {
+      arrayEvents: null,
       loading: false,
       selectedDate: null,
       headers: [
@@ -87,12 +90,24 @@ export default {
         { text: 'Actions', value: 'actions', sortable: false },
       ],
       bookings: [],
+      temp: [],
     }
   },
+  mounted() {
+    this.getAllSpecifiedBookings()
+  },
   created() {
-    // this.initialize()
+    this.initialize()
   },
   methods: {
+    getAllSpecifiedBookings() {
+      this.arrayEvents = this.temp.map((x) => {
+        const date = new Date(x.date).console.log(
+          date.toISOString().substr(0, 10)
+        )
+        return date
+      })
+    },
     getBookingsByDate() {
       //   alert(this.selectedDate)
       this.loading = true
@@ -102,12 +117,12 @@ export default {
       }, 1000)
     },
     initialize() {
-      this.bookings = [
+      this.temp = [
         {
           name: 'คุณพรเทพ ทวีทรัพย์',
           seat: 4,
           time: '10:00',
-          date: '2010-10-4',
+          date: '2020-10-4',
           phone: '0952931668',
           completed: false,
         },
@@ -115,7 +130,7 @@ export default {
           name: 'คุณเกศติยา เมืองแก้ว',
           seat: 2,
           time: '17:00',
-          date: '2010-10-4',
+          date: '2020-10-4',
           phone: '0971031369',
           completed: false,
         },
@@ -123,7 +138,7 @@ export default {
           name: 'คุณเจตุพนน์ ศรีภูธร',
           seat: 12,
           time: '18:00',
-          date: '2010-10-4',
+          date: '2020-10-7',
           phone: '0912345678',
           completed: false,
         },
