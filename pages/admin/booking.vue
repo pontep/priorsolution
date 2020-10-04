@@ -60,13 +60,23 @@
 
       <v-divider></v-divider>
       <v-card-actions>
-        <v-btn @click="test()" x-large block text color="primary">Save</v-btn>
+        <v-btn
+          :loading="loading"
+          :disabled="loading"
+          @click="save()"
+          x-large
+          block
+          text
+          color="primary"
+          >Save</v-btn
+        >
       </v-card-actions>
     </v-card>
   </v-container>
 </template>
 
 <script>
+import { db } from '@/services/firebase'
 export default {
   data() {
     return {
@@ -95,8 +105,20 @@ export default {
   mounted() {},
 
   methods: {
-    test() {
-      alert(this.booking.date)
+    async save() {
+      this.loading = true
+      await db
+        .collection('bookings')
+        .add(this.booking)
+        .then(function (docRef) {
+          console.log('Document written with ID: ', docRef.id)
+        })
+        .catch(function (error) {
+          console.error('Error adding document: ', error)
+        })
+        .finally(() => {
+          this.loading = false
+        })
     },
   },
 }
