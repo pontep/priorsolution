@@ -135,7 +135,8 @@ export default {
             .then(function (docRef) {
               console.log('Document written with ID: ', docRef.id)
               alert('Save booking successfully.')
-              // booking.vue?8d2a:141 Error adding document:  TypeError: Cannot read property 'reset' of undefined
+            })
+            .then(() => {
               this.reset()
             })
             .catch(function (error) {
