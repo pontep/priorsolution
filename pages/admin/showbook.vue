@@ -1,11 +1,10 @@
 <template>
   <v-container>
-    >
     <v-row justify="center" no-gutters>
       <v-col cols="4">
         <v-card outlined class="mx-auto" max-width="400">
           <v-card-title>
-            <v-icon class="mx-2">mdi-wallet-plus-outline</v-icon>
+            <v-icon class="mx-2">mdi-calendar-cursor</v-icon>
             <span>เลือกวันที่</span>
           </v-card-title>
           <div class="text-center">
@@ -36,8 +35,8 @@
       <v-col>
         <v-card outlined class="mx-auto">
           <v-card-title>
-            <v-icon class="mx-2">mdi-wallet-plus-outline</v-icon>
-            <span>ตารางการจอง</span>
+            <v-icon class="mx-2">mdi-calendar-month</v-icon>
+            <span>รายการจองทั้งหมดของวันที่เลือก</span>
           </v-card-title>
           <v-data-table
             :loading="loading"
