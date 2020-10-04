@@ -43,23 +43,30 @@
         <v-row>
           <v-col cols="2">
             <v-sheet rounded="lg">
-              <v-list color="transparent">
-                <v-list-item
-                  v-for="item in navigations"
-                  :key="item.title"
-                  link
-                  :to="item.to"
-                >
-                  <v-list-item-content>
-                    <v-list-item-title> {{ item.title }} </v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
+              <v-list>
+                <v-list-item-group mandatory color="primary" v-model="model">
+                  <v-list-item
+                    v-for="(item, i) in navigations"
+                    :key="i"
+                    link
+                    @click="handleTo(item.to)"
+                  >
+                    <v-list-item-icon>
+                      <v-icon v-text="item.icon"></v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                      <v-list-item-title
+                        v-text="item.title"
+                      ></v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list-item-group>
 
                 <v-divider class="my-2"></v-divider>
 
                 <v-list-item link color="grey lighten-4">
                   <v-list-item-content>
-                    <v-list-item-title> Refresh </v-list-item-title>
+                    <v-list-item-title>About</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </v-list>
@@ -86,23 +93,38 @@ import Cookie from 'js-cookie'
 export default {
   data: () => ({
     loading: false,
+    model: undefined,
     // links: ['Dashboard', 'Messages', 'Profile', 'Updates'],
     navigations: [
       {
         title: 'หน้าหลัก',
         to: '/admin',
+        icon: 'mdi-home',
       },
       {
-        title: 'จองร้านอาหาร',
+        title: 'เพิ่มการจอง',
         to: '/admin/booking',
+        icon: 'mdi-wallet-plus-outline',
       },
       {
         title: 'แสดงรายการจอง',
         to: '/admin/showbook',
+        icon: 'mdi-wallet-outline',
       },
     ],
   }),
+  mounted() {
+    var currentUrl = window.location.pathname
+    this.model = this.navigations
+      .map((e) => {
+        return e.to
+      })
+      .indexOf(currentUrl)
+  },
   methods: {
+    handleTo(i) {
+      this.$router.push(i)
+    },
     async signout() {
       try {
         this.loading = true
