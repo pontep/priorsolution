@@ -71,7 +71,9 @@
 </template>
 
 <script>
+import { fetchBookingDate } from '@/services/bookingController'
 const moment = require('moment') // require
+
 export default {
   data() {
     return {
@@ -95,7 +97,7 @@ export default {
     }
   },
   mounted() {
-    this.getAllBookingsBySpecifiedDate()
+    this.fetchBookingDate()
   },
   created() {
     this.initialize()
@@ -110,10 +112,20 @@ export default {
         .indexOf(item.name)
       this.bookings.splice(index, 1)
     },
-    getAllBookingsBySpecifiedDate() {
-      this.arrayEvents = this.temp.map((x) => {
-        return moment(x.date).format().substr(0, 10)
-      })
+    async fetchBookingDate() {
+      // send moment date and fetch only year-month
+      this.arrayEvents = await fetchBookingDate()
+        .then((res) => {
+          console.log(res)
+          return res
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+      // this.arrayEvents =
+      // this.temp.map((x) => {
+      //   return moment(x.date).format().substr(0, 10)
+      // })
     },
     async getBookingsByDate() {
       //   alert(this.selectedDate)
