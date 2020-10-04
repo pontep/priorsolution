@@ -60,7 +60,7 @@
 
       <v-divider></v-divider>
       <v-card-actions>
-        <v-btn x-large block text color="primary">Save</v-btn>
+        <v-btn @click="test()" x-large block text color="primary">Save</v-btn>
       </v-card-actions>
     </v-card>
   </v-container>
@@ -94,7 +94,11 @@ export default {
   },
   mounted() {},
 
-  methods: {},
+  methods: {
+    test() {
+      alert(this.booking.date)
+    },
+  },
 }
 </script>
 
