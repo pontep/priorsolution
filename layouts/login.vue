@@ -64,9 +64,19 @@
 
                 <v-divider class="my-2"></v-divider>
 
-                <v-list-item link color="grey lighten-4">
+                <v-list-item
+                  link
+                  color="grey lighten-4"
+                  v-for="(item, i) in pontep"
+                  :key="i"
+                  :href="item.to"
+                  target="_blank"
+                >
+                  <v-list-item-icon>
+                    <v-icon v-text="item.icon"></v-icon>
+                  </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title>About</v-list-item-title>
+                    <v-list-item-title v-text="item.title"></v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </v-list>
@@ -101,6 +111,13 @@ export default {
         to: '/',
         icon: 'mdi-home',
       },
+      {
+        title: 'เข้าสู่ระบบ',
+        to: '/login',
+        icon: 'mdi-login',
+      },
+    ],
+    pontep: [
       {
         title: 'GitHub repository',
         to: 'https://github.com/pontep/priorsolution/',
