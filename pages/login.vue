@@ -31,7 +31,14 @@
               </v-form>
             </v-card-text>
             <v-card-actions class="d-flex align-center justify-center">
-              <v-btn x-large color="primary" @click="signin()">Sign In</v-btn>
+              <v-btn
+                x-large
+                color="primary"
+                @click="signin()"
+                :loading="loading"
+                :disabled="loading"
+                >Sign In</v-btn
+              >
             </v-card-actions>
           </v-card>
         </v-col>
@@ -42,6 +49,7 @@
 
 <script>
 export default {
+  layout: 'login',
   data() {
     return {
       account: {
@@ -50,12 +58,14 @@ export default {
       },
       isError: false,
       errMsg: '',
+      loading: false,
     }
   },
   methods: {
-    signin() {
+    async signin() {
       // TODO: add parsing of data
-      this.$store
+      this.loading = true
+      await this.$store
         .dispatch('users/login', this.account)
         .then(() => {
           this.$router.go('/admin')
@@ -66,6 +76,9 @@ export default {
           setTimeout(() => {
             this.isError = false
           }, 5000)
+        })
+        .finally(() => {
+          this.loading = false
         })
     },
   },

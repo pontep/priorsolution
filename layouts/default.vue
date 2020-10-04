@@ -11,9 +11,9 @@
 
         <span><h4>PONTEP RESTAURANT</h4></span>
 
-        <v-btn v-for="item in navigations" :key="item.title" text :to="item.to">
+        <!-- <v-btn v-for="item in navigations" :key="item.title" text :to="item.to">
           {{ item.title }}
-        </v-btn>
+        </v-btn> -->
 
         <v-spacer></v-spacer>
 
@@ -26,6 +26,15 @@
             solo-inverted
           ></v-text-field>
         </v-responsive>
+
+        <v-btn
+          color="primary"
+          @click="signout()"
+          :loading="loading"
+          :disabled="loading"
+          text
+          >SignOut</v-btn
+        >
       </v-container>
     </v-app-bar>
 
@@ -35,9 +44,14 @@
           <v-col cols="2">
             <v-sheet rounded="lg">
               <v-list color="transparent">
-                <v-list-item v-for="n in 5" :key="n" link>
+                <v-list-item
+                  v-for="item in navigations"
+                  :key="item.title"
+                  link
+                  :to="item.to"
+                >
                   <v-list-item-content>
-                    <v-list-item-title> List Item {{ n }} </v-list-item-title>
+                    <v-list-item-title> {{ item.title }} </v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
 
@@ -66,19 +80,41 @@
 </template>
 
 <script>
+import { auth } from '@/services/firebase'
+import Cookie from 'js-cookie'
+
 export default {
   data: () => ({
+    loading: false,
     // links: ['Dashboard', 'Messages', 'Profile', 'Updates'],
     navigations: [
       {
-        title: 'Index',
-        to: '/',
+        title: 'หน้าหลัก',
+        to: '/admin',
       },
       {
-        title: 'Login',
-        to: '/login',
+        title: 'จองร้านอาหาร',
+        to: '/booking',
+      },
+      {
+        title: 'แสดงรายการจอง',
+        to: '/showbook',
       },
     ],
   }),
+  methods: {
+    async signout() {
+      try {
+        this.loading = true
+        await auth.signOut()
+        await Cookie.remove('access_token')
+        location.href = '/'
+      } catch (e) {
+        console.log(e)
+      } finally {
+        this.loading = false
+      }
+    },
+  },
 }
 </script>

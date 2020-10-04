@@ -6,7 +6,7 @@ export default function ({ store, route, redirect }) {
   if (!user && route.path.match(blockedRoute)) {
     redirect('/')
   }
-  if (user && route.path === loginRoute) {
+  if (user && (route.path === '/' || route.path === '/login')) {
     redirect('/admin')
   }
 }

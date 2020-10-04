@@ -6,7 +6,7 @@
       </div>
     </div>
     <div class="d-flex justify-center align-center pt-10">
-      <p>Please sign in to use application.</p>
+      <p>Please <a href="/login">sign in</a> to use application.</p>
     </div>
     <div class="d-flex justify-center align-center pt-10">
       <p>
@@ -25,7 +25,9 @@
 </template>
 
 <script>
-export default {}
+export default {
+  layout: 'login',
+}
 </script>
 
 <style></style>
