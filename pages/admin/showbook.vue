@@ -55,6 +55,7 @@
             ></v-text-field>
           </v-card-title>
           <v-data-table
+            sort-by="completed"
             :search="search"
             :loading="loading"
             loading-text="Loading... Please wait"
@@ -65,23 +66,32 @@
           >
             <template v-slot:item.completed="{ item }">
               <div v-if="item.completed">
-                <v-chip class="ma-2" color="teal" text-color="white">
-                  <v-avatar left>
+                <v-chip outlined color="green lighten-1">
+                  <v-avatar>
                     <v-icon>mdi-checkbox-marked-circle</v-icon>
                   </v-avatar>
-                  Confirmed
+                  <!-- Confirmed -->
                 </v-chip>
               </div>
-            </template>
-            <template v-slot:item.actions="{ item }">
-              <div class="d-flex">
-                <v-simple-checkbox
-                  v-model="item.completed"
-                  color="success"
-                  @click="updateItem(item)"
-                ></v-simple-checkbox>
-                <div class="px-1"></div>
-                <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+              <div v-else>
+                <v-chip outlined color="">
+                  <v-avatar left>
+                    <v-icon
+                      color="green lighten-1"
+                      @click="
+                        item.completed = !item.completed
+                        updateItem(item)
+                      "
+                      >mdi-checkbox-marked-circle</v-icon
+                    >
+                  </v-avatar>
+                  <v-divider vertical class="mx-2"></v-divider>
+                  <v-avatar right>
+                    <v-icon color="red lighten-2" @click="deleteItem(item)"
+                      >mdi-delete</v-icon
+                    >
+                  </v-avatar>
+                </v-chip>
               </div>
             </template>
           </v-data-table>
@@ -89,19 +99,19 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-row justify="center">
+    <!-- <v-row justify="center">
       <pre>
             {{ bookings }}
         </pre
       >
-    </v-row>
+    </v-row> -->
   </v-container>
 </template>
 
 <script>
 import { fetchBookingDate } from '@/services/bookingController'
 import { db } from '@/services/firebase'
-const moment = require('moment') // require
+const moment = require('moment')
 
 export default {
   data() {
@@ -123,11 +133,9 @@ export default {
         { text: 'เบอร์โทรศัพท์', value: 'phone' },
         { text: 'เวลา', value: 'time' },
         { text: 'จำนวนที่นั่ง', value: 'seat' },
-        { text: 'สถานะ', value: 'completed', sortable: false },
-        { text: 'Actions', value: 'actions', sortable: false },
+        { text: 'สถานะ', value: 'completed', sortable: true },
       ],
       bookings: [],
-      temp: [],
     }
   },
   watch: {
@@ -140,13 +148,11 @@ export default {
   },
   methods: {
     async updateItem(item) {
-      // console.log(JSON.parse(JSON.stringify(item)))
-      var completed = item.completed ? true : false
       await db
         .collection('bookings')
         .doc(item.id)
         .update({
-          completed: completed,
+          completed: item.completed,
         })
         .then(() => {
           alert('Update data successfully.')
@@ -173,6 +179,8 @@ export default {
             this.getBookingsByDate()
             this.fetchBookingDateByMonth()
           })
+      } else {
+        this.loading = false
       }
     },
     async fetchBookingDateByMonth(month) {
@@ -192,16 +200,10 @@ export default {
         .where('date', '<=', monthEnd)
         .get()
         .then((querySnapshot) => {
-          // var tmp = []
           var eventsInMonth = []
           querySnapshot.forEach(function (doc) {
-            // doc.data() is never undefined for query doc snapshots
-            // console.log(doc.id, ' => ', doc.data())
-            // get all bookings data in speicified month => this.temp
-            // tmp.push(doc.data())
             eventsInMonth.push(doc.data().date)
           })
-          // this.temp = tmp
           this.arrayEvents = eventsInMonth
         })
         .catch(function (error) {
