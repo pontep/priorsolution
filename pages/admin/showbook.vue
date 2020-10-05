@@ -44,8 +44,18 @@
           <v-card-title>
             <v-icon class="mx-2">mdi-calendar-month</v-icon>
             <span>รายการจองทั้งหมดของวันที่เลือก</span>
+            <v-spacer></v-spacer>
+            <v-text-field
+              v-model="search"
+              append-icon="mdi-magnify"
+              label="Search"
+              single-line
+              hide-details
+              clearable
+            ></v-text-field>
           </v-card-title>
           <v-data-table
+            :search="search"
             :loading="loading"
             loading-text="Loading... Please wait"
             :headers="headers"
@@ -53,11 +63,22 @@
             :items-per-page="10"
             class="elevation-1"
           >
+            <template v-slot:item.completed="{ item }">
+              <div v-if="item.completed">
+                <v-chip class="ma-2" color="teal" text-color="white">
+                  <v-avatar left>
+                    <v-icon>mdi-checkbox-marked-circle</v-icon>
+                  </v-avatar>
+                  Confirmed
+                </v-chip>
+              </div>
+            </template>
             <template v-slot:item.actions="{ item }">
               <div class="d-flex">
                 <v-simple-checkbox
                   v-model="item.completed"
                   color="success"
+                  @click="updateItem(item)"
                 ></v-simple-checkbox>
                 <div class="px-1"></div>
                 <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
@@ -68,12 +89,12 @@
         </v-card>
       </v-col>
     </v-row>
-    <!-- <v-row justify="center">
+    <v-row justify="center">
       <pre>
             {{ bookings }}
         </pre
       >
-    </v-row> -->
+    </v-row>
   </v-container>
 </template>
 
@@ -85,6 +106,7 @@ const moment = require('moment') // require
 export default {
   data() {
     return {
+      search: '',
       datepickerLoading: false,
       pickerDate: null,
 
@@ -101,6 +123,7 @@ export default {
         { text: 'เบอร์โทรศัพท์', value: 'phone' },
         { text: 'เวลา', value: 'time' },
         { text: 'จำนวนที่นั่ง', value: 'seat' },
+        { text: 'สถานะ', value: 'completed', sortable: false },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
       bookings: [],
@@ -116,6 +139,22 @@ export default {
     this.fetchBookingDateByMonth(moment().format('YYYY-MM'))
   },
   methods: {
+    async updateItem(item) {
+      // console.log(JSON.parse(JSON.stringify(item)))
+      var completed = item.completed ? true : false
+      await db
+        .collection('bookings')
+        .doc(item.id)
+        .update({
+          completed: completed,
+        })
+        .then(() => {
+          alert('Update data successfully.')
+        })
+        .catch(function (error) {
+          console.error('Error updating document: ', error)
+        })
+    },
     async deleteItem(item) {
       this.loading = true
       if (confirm('Are you sure?')) {
