@@ -9,15 +9,21 @@
           </v-card-title>
           <div class="text-center">
             <v-date-picker
+              :picker-date.sync="pickerDate"
+              :disabled="datepickerLoading"
               class="pa-2"
               year-icon="mdi-food"
               full-width
               v-model="selectedDate"
               @click:date="getBookingsByDate()"
-              @click:month="fetchBookingDateByMonth"
               :events="arrayEvents"
               event-color="green lighten-1"
-            ></v-date-picker>
+            >
+              <v-progress-linear
+                v-if="datepickerLoading"
+                :indeterminate="datepickerLoading"
+              ></v-progress-linear>
+            </v-date-picker>
           </div>
           <v-divider></v-divider>
           <v-card-actions>
@@ -79,6 +85,9 @@ const moment = require('moment') // require
 export default {
   data() {
     return {
+      datepickerLoading: false,
+      pickerDate: null,
+
       arrayEvents: null,
       loading: false,
       selectedDate: null,
@@ -97,6 +106,11 @@ export default {
       bookings: [],
       temp: [],
     }
+  },
+  watch: {
+    pickerDate(val) {
+      this.fetchBookingDateByMonth(val)
+    },
   },
   mounted() {
     var month = moment().format('YYYY-MM')
@@ -117,6 +131,7 @@ export default {
       this.bookings.splice(index, 1)
     },
     async fetchBookingDateByMonth(month) {
+      this.datepickerLoading = true
       // fetch event by month => this.arrayevent
       // month = 2020-10
       var monthStart = month + '-00'
@@ -141,6 +156,9 @@ export default {
         })
         .catch(function (error) {
           console.log('Error getting documents: ', error)
+        })
+        .finally(() => {
+          this.datepickerLoading = false
         })
     },
     async getBookingsByDate() {
