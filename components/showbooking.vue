@@ -4,53 +4,62 @@
       <v-col>
         <v-card outlined class="mx-auto">
           <v-card-title>
-            <v-icon class="mx-2">mdi-calendar-month</v-icon>
-            <span>รายการจองทั้งหมดของวันที่เลือก</span>
-            <v-spacer></v-spacer>
-            <v-menu
-              v-model="menu2"
-              :close-on-content-click="false"
-              :nudge-right="40"
-              transition="scale-transition"
-              offset-y
-              min-width="290px"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <v-text-field
-                  v-model="selectedDate"
-                  label="Picker without buttons"
-                  prepend-icon="mdi-calendar"
-                  readonly
-                  v-bind="attrs"
-                  v-on="on"
-                ></v-text-field>
-              </template>
-              <v-date-picker
-                :disabled="datepickerLoading"
-                year-icon="mdi-food"
-                v-model="selectedDate"
-                :picker-date.sync="pickerDate"
-                @click:date="getBookingsByDate()"
-                @input="menu2 = false"
-                :events="arrayEvents"
-                event-color="green lighten-1"
-                ><v-progress-linear
-                  v-if="datepickerLoading"
-                  :indeterminate="datepickerLoading"
-                ></v-progress-linear
-              ></v-date-picker>
-            </v-menu>
-            <v-text-field
-              v-model="search"
-              append-icon="mdi-magnify"
-              label="Search"
-              single-line
-              hide-details
-              clearable
-            ></v-text-field>
+            <v-row class="offset-0">
+              <v-icon class="mx-2">mdi-calendar-month</v-icon>
+              <span>รายการจองทั้งหมดของวันที่เลือก</span>
+            </v-row>
           </v-card-title>
+          <v-row justify="center" class="px-8">
+            <v-col>
+              <v-menu
+                v-model="menu2"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                transition="scale-transition"
+                offset-y
+                min-width="290px"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="selectedDate"
+                    label="เลือกวันที่"
+                    prepend-icon="mdi-calendar"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-date-picker
+                  :disabled="datepickerLoading"
+                  year-icon="mdi-food"
+                  v-model="selectedDate"
+                  :picker-date.sync="pickerDate"
+                  @click:date="getBookingsByDate()"
+                  @input="menu2 = false"
+                  :events="arrayEvents"
+                  event-color="green lighten-1"
+                  ><v-progress-linear
+                    v-if="datepickerLoading"
+                    :indeterminate="datepickerLoading"
+                  ></v-progress-linear
+                ></v-date-picker>
+              </v-menu>
+            </v-col>
+            <v-col>
+              <v-text-field
+                v-model="search"
+                append-icon="mdi-magnify"
+                label="Search"
+                single-line
+                hide-details
+                clearable
+              ></v-text-field>
+            </v-col>
+          </v-row>
           <v-data-table
-            sort-by="completed"
+            multi-sort
+            height="550"
+            :sort-by="['completed', 'time']"
             :search="search"
             :loading="loading"
             loading-text="Loading... Please wait"
@@ -122,7 +131,7 @@ export default {
           value: 'name',
         },
         { text: 'เบอร์โทรศัพท์', value: 'phone' },
-        { text: 'เวลา', value: 'time' },
+        { text: 'เวลา', value: 'time', sortable: true },
         { text: 'จำนวนที่นั่ง', value: 'seat' },
         { text: 'สถานะ', value: 'completed', sortable: true },
       ],
