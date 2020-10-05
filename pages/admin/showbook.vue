@@ -14,6 +14,7 @@
               full-width
               v-model="selectedDate"
               @click:date="getBookingsByDate()"
+              @click:month="fetchBookingDateByMonth"
               :events="arrayEvents"
               event-color="green lighten-1"
             ></v-date-picker>
@@ -21,7 +22,7 @@
           <v-divider></v-divider>
           <v-card-actions>
             <v-btn
-              @click="getBookingsByDate()"
+              @click="fetchBookingDateByMonth()"
               x-large
               block
               text
@@ -72,6 +73,7 @@
 
 <script>
 import { fetchBookingDate } from '@/services/bookingController'
+import { db } from '@/services/firebase'
 const moment = require('moment') // require
 
 export default {
@@ -97,7 +99,9 @@ export default {
     }
   },
   mounted() {
-    this.fetchBookingDate()
+    var month = moment().format('YYYY-MM')
+    console.log(month)
+    this.fetchBookingDateByMonth(month)
   },
   created() {
     this.initialize()
@@ -112,16 +116,40 @@ export default {
         .indexOf(item.name)
       this.bookings.splice(index, 1)
     },
-    async fetchBookingDate() {
+    async fetchBookingDateByMonth(month) {
+      // fetch event by month => this.arrayevent
+      // month = 2020-10
+      var monthStart = month + '-00'
+      var monthEnd = month + '-31'
+      await db
+        .collection('bookings')
+        .where('date', '>=', monthStart)
+        .where('date', '<=', monthEnd)
+        .get()
+        .then((querySnapshot) => {
+          var tmp = []
+          querySnapshot.forEach(function (doc) {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, ' => ', doc.data())
+            // get all bookings data in speicified month => this.temp
+            tmp.push(doc.data())
+            // this.arrayEvents
+            // this.arrayEvents
+          })
+          this.temp = tmp
+        })
+        .catch(function (error) {
+          console.log('Error getting documents: ', error)
+        })
       // send moment date and fetch only year-month
-      this.arrayEvents = await fetchBookingDate()
-        .then((res) => {
-          console.log(res)
-          return res
-        })
-        .catch((e) => {
-          console.log(e)
-        })
+      // this.arrayEvents = await fetchBookingDate()
+      //   .then((res) => {
+      //     console.log(res)
+      //     return res
+      //   })
+      //   .catch((e) => {
+      //     console.log(e)
+      //   })
       // this.arrayEvents =
       // this.temp.map((x) => {
       //   return moment(x.date).format().substr(0, 10)
