@@ -145,16 +145,16 @@ export default {
         .where('date', '<=', monthEnd)
         .get()
         .then((querySnapshot) => {
-          var tmp = []
+          // var tmp = []
           var eventsInMonth = []
           querySnapshot.forEach(function (doc) {
             // doc.data() is never undefined for query doc snapshots
             // console.log(doc.id, ' => ', doc.data())
             // get all bookings data in speicified month => this.temp
-            tmp.push(doc.data())
+            // tmp.push(doc.data())
             eventsInMonth.push(doc.data().date)
           })
-          this.temp = tmp
+          // this.temp = tmp
           this.arrayEvents = eventsInMonth
         })
         .catch(function (error) {
@@ -165,18 +165,24 @@ export default {
         })
     },
     async getBookingsByDate() {
-      //   alert(this.selectedDate)
       this.loading = true
-      setTimeout(() => {
-        var tmp = []
-        this.temp.forEach((x) => {
-          if (this.selectedDate === x.date) {
-            tmp.push(x)
-          }
+      await db
+        .collection('bookings')
+        .where('date', '==', this.selectedDate)
+        .get()
+        .then((querySnapshot) => {
+          var datas = []
+          querySnapshot.forEach(function (doc) {
+            datas.push(doc.data())
+          })
+          this.bookings = datas
         })
-        this.bookings = tmp
-        this.loading = false
-      }, 200)
+        .catch(function (error) {
+          console.log('Error getting documents: ', error)
+        })
+        .finally(() => {
+          this.loading = false
+        })
     },
     initialize() {
       this.temp = [
