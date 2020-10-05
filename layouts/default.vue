@@ -9,7 +9,9 @@
           />
         </v-avatar>
 
-        <span><h4>PONTEP RESTAURANT</h4></span>
+        <span
+          ><h4>PONTEP RESTAURANT <font color="blue">V2</font></h4></span
+        >
 
         <v-spacer></v-spacer>
 
