@@ -87,13 +87,8 @@ export default {
         icon: 'mdi-home',
       },
       {
-        title: 'เพิ่มการจอง',
-        to: '/admin/booking',
-        icon: 'mdi-wallet-plus-outline',
-      },
-      {
-        title: 'แสดงรายการจอง',
-        to: '/admin/showbook',
+        title: 'จัดการการจอง',
+        to: '/admin/manage',
         icon: 'mdi-wallet-outline',
       },
     ],
