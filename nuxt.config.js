@@ -17,7 +17,12 @@ export default {
   css: [],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: [],
+  plugins: [
+    {
+      src: '~/plugins/vue-notification.js',
+      ssr: false,
+    },
+  ],
 
   // Router settings
   router: {
