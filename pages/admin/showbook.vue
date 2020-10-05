@@ -76,12 +76,7 @@
               <div v-else>
                 <v-chip outlined color="">
                   <v-avatar left>
-                    <v-icon
-                      color="green lighten-1"
-                      @click="
-                        item.completed = !item.completed
-                        updateItem(item)
-                      "
+                    <v-icon color="green lighten-1" @click="updateItem(item)"
                       >mdi-checkbox-marked-circle</v-icon
                     >
                   </v-avatar>
@@ -152,13 +147,16 @@ export default {
         .collection('bookings')
         .doc(item.id)
         .update({
-          completed: item.completed,
+          completed: !item.completed,
         })
         .then(() => {
           alert('Update data successfully.')
         })
         .catch(function (error) {
           console.error('Error updating document: ', error)
+        })
+        .finally(() => {
+          this.getBookingsByDate()
         })
     },
     async deleteItem(item) {
