@@ -93,6 +93,11 @@ export default {
         to: '/admin/manage',
         icon: 'mdi-wallet-outline',
       },
+      {
+        title: 'โหวต',
+        to: '/admin/vote',
+        icon: 'mdi-vote',
+      },
     ],
   }),
   mounted() {
