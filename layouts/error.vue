@@ -1,15 +1,20 @@
 <template>
   <v-app dark>
-    <v-container>
+    <v-container fill-height fluid class="black">
       <v-row justify="center" align="center">
         <v-col class="text-center">
-          <h1 v-if="error.statusCode === 404">
-            {{ pageNotFound }}
-          </h1>
-          <h1 v-else>
-            {{ otherError }}
-          </h1>
-          <NuxtLink to="/"> Home page </NuxtLink>
+          <v-parallax
+            height="500"
+            src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"
+          >
+            <h1 v-if="error.statusCode === 404">
+              {{ pageNotFound }}
+            </h1>
+            <h1 v-else>
+              {{ otherError }}
+            </h1>
+            <NuxtLink to="/"> Home page </NuxtLink>
+          </v-parallax>
         </v-col>
       </v-row>
     </v-container>
