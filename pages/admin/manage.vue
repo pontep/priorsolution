@@ -1,0 +1,26 @@
+<template>
+  <v-container fluid fill-height>
+    <v-row>
+      <v-col cols="4">
+        <booking />
+      </v-col>
+      <v-divider vertical></v-divider>
+      <v-col>
+        <showbooking />
+      </v-col>
+    </v-row>
+  </v-container>
+</template>
+
+<script>
+import booking from '@/components/booking'
+import showbooking from '@/components/showbooking'
+export default {
+  components: {
+    booking,
+    showbooking,
+  },
+}
+</script>
+
+<style></style>
