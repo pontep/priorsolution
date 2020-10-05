@@ -133,7 +133,7 @@ export default {
             .collection('bookings')
             .add(this.booking)
             .then(function (docRef) {
-              console.log('Document written with ID: ', docRef.id)
+              // console.log('Document written with ID: ', docRef.id)
               alert('Save booking successfully.')
             })
             .then(() => {
