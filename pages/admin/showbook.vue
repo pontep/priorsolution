@@ -116,14 +116,25 @@ export default {
     this.fetchBookingDateByMonth(moment().format('YYYY-MM'))
   },
   methods: {
-    deleteItem(item) {
-      console.log(item)
-      // var index = this.bookings
-      //   .map((x) => {
-      //     return x.name
-      //   })
-      //   .indexOf(item.name)
-      // this.bookings.splice(index, 1)
+    async deleteItem(item) {
+      this.loading = true
+      if (confirm('Are you sure?')) {
+        await db
+          .collection('bookings')
+          .doc(item.id)
+          .delete()
+          .then((res) => {
+            alert('Delete successfully.')
+          })
+          .catch(function (error) {
+            console.log('Error deleting documents: ', error)
+          })
+          .finally(() => {
+            this.loading = false
+            this.getBookingsByDate()
+            this.fetchBookingDateByMonth()
+          })
+      }
     },
     async fetchBookingDateByMonth(month) {
       // check if month = undefind
@@ -170,7 +181,9 @@ export default {
         .then((querySnapshot) => {
           var datas = []
           querySnapshot.forEach(function (doc) {
-            datas.push(doc.data())
+            var data = doc.data()
+            data.id = doc.id
+            datas.push(data)
           })
           this.bookings = datas
         })
