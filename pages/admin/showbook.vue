@@ -128,15 +128,18 @@ export default {
         .get()
         .then((querySnapshot) => {
           var tmp = []
+          var eventsInMonth = []
           querySnapshot.forEach(function (doc) {
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, ' => ', doc.data())
             // get all bookings data in speicified month => this.temp
             tmp.push(doc.data())
+            eventsInMonth.push(doc.data().date)
             // this.arrayEvents
             // this.arrayEvents
           })
           this.temp = tmp
+          this.arrayEvents = eventsInMonth
         })
         .catch(function (error) {
           console.log('Error getting documents: ', error)
