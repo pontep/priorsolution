@@ -135,8 +135,6 @@ export default {
             // get all bookings data in speicified month => this.temp
             tmp.push(doc.data())
             eventsInMonth.push(doc.data().date)
-            // this.arrayEvents
-            // this.arrayEvents
           })
           this.temp = tmp
           this.arrayEvents = eventsInMonth
@@ -144,19 +142,6 @@ export default {
         .catch(function (error) {
           console.log('Error getting documents: ', error)
         })
-      // send moment date and fetch only year-month
-      // this.arrayEvents = await fetchBookingDate()
-      //   .then((res) => {
-      //     console.log(res)
-      //     return res
-      //   })
-      //   .catch((e) => {
-      //     console.log(e)
-      //   })
-      // this.arrayEvents =
-      // this.temp.map((x) => {
-      //   return moment(x.date).format().substr(0, 10)
-      // })
     },
     async getBookingsByDate() {
       //   alert(this.selectedDate)
