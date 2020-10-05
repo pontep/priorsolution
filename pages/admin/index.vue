@@ -20,6 +20,7 @@
               <v-icon>mdi-account-details</v-icon> รหัสนักศึกษา B6000783</span
             >
           </v-row>
+          <!-- <v-btn color="info" @click="test()">test</v-btn> -->
           <v-divider class="my-4"></v-divider>
           <v-row no-gutters>
             <span class="my-2">
@@ -73,8 +74,15 @@ export default {
       loading: false,
     }
   },
-  methods: {},
+  methods: {
+    test() {
+      this.$notify({
+        group: 'foo',
+        title: 'Important message',
+        text: 'Hello user! This is a notification!',
+        type: 'accent',
+      })
+    },
+  },
 }
 </script>
-
-<style></style>

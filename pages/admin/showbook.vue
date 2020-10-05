@@ -150,10 +150,20 @@ export default {
           completed: !item.completed,
         })
         .then(() => {
-          alert('Update data successfully.')
+          this.$notify({
+            group: 'foo',
+            title: 'Successfully',
+            text: 'Update data successfully',
+          })
         })
         .catch(function (error) {
           console.error('Error updating document: ', error)
+          this.$notify({
+            group: 'foo',
+            title: 'Error',
+            text: error,
+            type: 'warn',
+          })
         })
         .finally(() => {
           this.getBookingsByDate()
@@ -166,8 +176,12 @@ export default {
           .collection('bookings')
           .doc(item.id)
           .delete()
-          .then((res) => {
-            alert('Delete successfully.')
+          .then(() => {
+            this.$notify({
+              group: 'foo',
+              title: 'Successfully',
+              text: 'Delete data successfully',
+            })
           })
           .catch(function (error) {
             console.log('Error deleting documents: ', error)

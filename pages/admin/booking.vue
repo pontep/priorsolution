@@ -126,7 +126,12 @@ export default {
     async save() {
       if (this.validate()) {
         if (this.booking.date == undefined) {
-          alert('Please select date')
+          this.$notify({
+            group: 'foo',
+            title: 'Error',
+            text: 'Please select date.',
+            type: 'warn',
+          })
         } else {
           this.loading = true
           await db
@@ -134,13 +139,23 @@ export default {
             .add(this.booking)
             .then(function (docRef) {
               // console.log('Document written with ID: ', docRef.id)
-              alert('Save booking successfully.')
             })
             .then(() => {
+              this.$notify({
+                group: 'foo',
+                title: 'Successfully',
+                text: 'Save booking successfully.',
+              })
               this.reset()
             })
             .catch(function (error) {
               console.error('Error adding document: ', error)
+              this.$notify({
+                group: 'foo',
+                title: 'Error',
+                text: error,
+                type: 'warn',
+              })
             })
             .finally(() => {
               this.loading = false
