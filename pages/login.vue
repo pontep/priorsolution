@@ -5,7 +5,9 @@
         <v-col cols="12" sm="8" md="6">
           <v-card class="elevation-12">
             <v-toolbar color="primary" dark flat>
-              <v-toolbar-title>Sign In</v-toolbar-title>
+              <v-toolbar-title
+                ><v-icon>mdi-login</v-icon> เข้าสู่ระบบ</v-toolbar-title
+              >
               <v-spacer />
             </v-toolbar>
             <v-card-text>
@@ -37,7 +39,8 @@
                 @click="signin()"
                 :loading="loading"
                 :disabled="loading"
-                >Sign In</v-btn
+                block
+                ><span><b>เข้าสู่ระบบ</b></span></v-btn
               >
             </v-card-actions>
           </v-card>
