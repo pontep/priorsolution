@@ -46,6 +46,12 @@ export default {
           icon: 'mdi-youtube',
           color: 'red',
         },
+        {
+          title: 'Instagram',
+          to: 'https://www.instagram.com/pontep.thaweesup/',
+          icon: 'mdi-instagram',
+          color: 'brown',
+        },
       ],
     }
   },
