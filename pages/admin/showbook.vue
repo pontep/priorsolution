@@ -115,9 +115,6 @@ export default {
   mounted() {
     this.fetchBookingDateByMonth(moment().format('YYYY-MM'))
   },
-  created() {
-    this.initialize()
-  },
   methods: {
     deleteItem(item) {
       console.log(item)
@@ -183,34 +180,6 @@ export default {
         .finally(() => {
           this.loading = false
         })
-    },
-    initialize() {
-      this.temp = [
-        {
-          name: 'คุณพรเทพ ทวีทรัพย์',
-          seat: 4,
-          time: '10:00',
-          date: '2020-10-04',
-          phone: '0952931668',
-          completed: false,
-        },
-        {
-          name: 'คุณเกศติยา เมืองแก้ว',
-          seat: 2,
-          time: '17:00',
-          date: '2020-10-04',
-          phone: '0971031369',
-          completed: false,
-        },
-        {
-          name: 'คุณเจตุพนน์ ศรีภูธร',
-          seat: 12,
-          time: '18:00',
-          date: '2020-10-07',
-          phone: '0912345678',
-          completed: false,
-        },
-      ]
     },
   },
 }
