@@ -11,21 +11,7 @@
 
         <span><h4>PONTEP RESTAURANT</h4></span>
 
-        <!-- <v-btn v-for="item in navigations" :key="item.title" text :to="item.to">
-          {{ item.title }}
-        </v-btn> -->
-
         <v-spacer></v-spacer>
-
-        <v-responsive max-width="260">
-          <v-text-field
-            dense
-            flat
-            hide-details
-            rounded
-            solo-inverted
-          ></v-text-field>
-        </v-responsive>
 
         <v-btn
           color="primary"
@@ -33,7 +19,7 @@
           :loading="loading"
           :disabled="loading"
           text
-          >Sign In</v-btn
+          ><v-icon>mdi-login</v-icon>Sign In</v-btn
         >
       </v-container>
     </v-app-bar>
@@ -63,22 +49,7 @@
                 </v-list-item-group>
 
                 <v-divider class="my-2"></v-divider>
-
-                <v-list-item
-                  link
-                  color="grey lighten-4"
-                  v-for="(item, i) in pontep"
-                  :key="i"
-                  :href="item.to"
-                  target="_blank"
-                >
-                  <v-list-item-icon>
-                    <v-icon v-text="item.icon"></v-icon>
-                  </v-list-item-icon>
-                  <v-list-item-content>
-                    <v-list-item-title v-text="item.title"></v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
+                <about-din-vue />
               </v-list>
             </v-sheet>
           </v-col>
@@ -99,8 +70,10 @@
 <script>
 import { auth } from '@/services/firebase'
 import Cookie from 'js-cookie'
+import aboutDinVue from '~/components/aboutDin.vue'
 
 export default {
+  components: { aboutDinVue },
   data: () => ({
     loading: false,
     model: undefined,
