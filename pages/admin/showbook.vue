@@ -113,24 +113,27 @@ export default {
     },
   },
   mounted() {
-    var month = moment().format('YYYY-MM')
-    console.log(month)
-    this.fetchBookingDateByMonth(month)
+    this.fetchBookingDateByMonth(moment().format('YYYY-MM'))
   },
   created() {
     this.initialize()
   },
   methods: {
     deleteItem(item) {
-      //   console.log(item)
-      var index = this.bookings
-        .map((x) => {
-          return x.name
-        })
-        .indexOf(item.name)
-      this.bookings.splice(index, 1)
+      console.log(item)
+      // var index = this.bookings
+      //   .map((x) => {
+      //     return x.name
+      //   })
+      //   .indexOf(item.name)
+      // this.bookings.splice(index, 1)
     },
     async fetchBookingDateByMonth(month) {
+      // check if month = undefind
+      if (month == undefined) {
+        month = this.pickerDate
+      }
+
       this.datepickerLoading = true
       // fetch event by month => this.arrayevent
       // month = 2020-10
@@ -146,7 +149,7 @@ export default {
           var eventsInMonth = []
           querySnapshot.forEach(function (doc) {
             // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, ' => ', doc.data())
+            // console.log(doc.id, ' => ', doc.data())
             // get all bookings data in speicified month => this.temp
             tmp.push(doc.data())
             eventsInMonth.push(doc.data().date)
@@ -164,7 +167,7 @@ export default {
     async getBookingsByDate() {
       //   alert(this.selectedDate)
       this.loading = true
-      await setTimeout(() => {
+      setTimeout(() => {
         var tmp = []
         this.temp.forEach((x) => {
           if (this.selectedDate === x.date) {
@@ -202,7 +205,6 @@ export default {
           completed: false,
         },
       ]
-      console.log('init complete')
     },
   },
 }
