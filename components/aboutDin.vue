@@ -9,10 +9,13 @@
       target="_blank"
     >
       <v-list-item-icon>
-        <v-icon v-text="item.icon"></v-icon>
+        <v-icon :color="item.color" v-text="item.icon"></v-icon>
       </v-list-item-icon>
       <v-list-item-content>
-        <v-list-item-title v-text="item.title"></v-list-item-title>
+        <v-list-item-title
+          :color="item.color"
+          v-text="item.title"
+        ></v-list-item-title>
       </v-list-item-content>
     </v-list-item>
   </div>
@@ -27,11 +30,21 @@ export default {
           title: 'GitHub repository',
           to: 'https://github.com/pontep/priorsolution/',
           icon: 'mdi-github',
+          color: 'black',
         },
+
         {
           title: 'Facebook',
           to: 'https://www.facebook.com/pontepthaweesup/',
           icon: 'mdi-facebook',
+          color: 'blue',
+        },
+        {
+          title: 'Youtube',
+          to:
+            'https://www.youtube.com/channel/UCGInPeIu27sokWZFs240Oyw?view_as=subscriber',
+          icon: 'mdi-youtube',
+          color: 'red',
         },
       ],
     }
