@@ -1,5 +1,5 @@
-/services
-
+#Ignore firebase api key
+services/firebase.js
 # Created by .ignore support plugin (hsz.mobi)
 ### Node template
 # Logs
