@@ -16,6 +16,18 @@
 import booking from '@/components/booking'
 import showbooking from '@/components/showbooking'
 export default {
+  head() {
+    return {
+      title: 'จัดการการจอง',
+      meta: [
+        {
+          hid: 'manage',
+          name: 'manage booking',
+          content: 'หน้าจัดการการจอง',
+        },
+      ],
+    }
+  },
   components: {
     booking,
     showbooking,

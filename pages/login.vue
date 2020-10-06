@@ -53,6 +53,18 @@
 <script>
 export default {
   layout: 'login',
+  head() {
+    return {
+      title: 'เข้าสู่ระบบ',
+      meta: [
+        {
+          hid: 'login',
+          name: 'login',
+          content: 'หน้าเข้าสู่ระบบ',
+        },
+      ],
+    }
+  },
   data() {
     return {
       account: {
