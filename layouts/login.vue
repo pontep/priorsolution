@@ -80,7 +80,7 @@ export default {
     // links: ['Dashboard', 'Messages', 'Profile', 'Updates'],
     navigations: [
       {
-        title: 'หน้าหลัก',
+        title: 'หน้าแรก',
         to: '/',
         icon: 'mdi-home',
       },

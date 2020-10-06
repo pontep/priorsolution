@@ -9,7 +9,9 @@
           />
         </v-avatar>
 
-        <span><h4>PONTEP RESTAURANT</h4></span>
+        <span
+          ><h4>PONTEP RESTAURANT <font color="blue">V2</font></h4></span
+        >
 
         <v-spacer></v-spacer>
 
@@ -87,14 +89,14 @@ export default {
         icon: 'mdi-home',
       },
       {
-        title: 'เพิ่มการจอง',
-        to: '/admin/booking',
-        icon: 'mdi-wallet-plus-outline',
+        title: 'จัดการการจอง',
+        to: '/admin/manage',
+        icon: 'mdi-wallet-outline',
       },
       {
-        title: 'แสดงรายการจอง',
-        to: '/admin/showbook',
-        icon: 'mdi-wallet-outline',
+        title: 'โหวต',
+        to: '/admin/vote',
+        icon: 'mdi-vote',
       },
     ],
   }),

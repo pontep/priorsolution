@@ -69,6 +69,18 @@
 
 <script>
 export default {
+  head() {
+    return {
+      title: 'หน้าหลัก',
+      meta: [
+        {
+          hid: 'home',
+          name: 'user home',
+          content: 'หน้าหลักของผู้ใช้',
+        },
+      ],
+    }
+  },
   data() {
     return {
       loading: false,

@@ -27,6 +27,18 @@
 <script>
 export default {
   layout: 'login',
+  head() {
+    return {
+      title: 'หน้าแรก',
+      meta: [
+        {
+          hid: 'index',
+          name: 'index',
+          content: 'หน้าแรก',
+        },
+      ],
+    }
+  },
 }
 </script>
 
