@@ -1,14 +1,19 @@
 import JWTDecode from 'jwt-decode'
 import cookieparser from 'cookieparser'
+import Cookie from 'js-cookie'
 
 export const actions = {
-  nuxtClientInit({ commit }, { req }) {
+  nuxtClientInit({ commit }) {
     console.log(' nuxtClientInit work')
-    if (process.server && process.static) return
-    if (!req.headers.cookie) return
-
-    const parsed = cookieparser.parse(req.headers.cookie)
-    const accessTokenCookie = parsed.access_token
+    // if (process.server && process.static) return
+    // if (!req.headers.cookie) return
+    const cookie = Cookie.get('access_token')
+    console.log('cookie')
+    console.log(cookie)
+    // const parsed = cookieparser.parse(cookie)
+    // console.log('parsed')
+    // console.log(parsed)
+    const accessTokenCookie = cookie
 
     if (!accessTokenCookie) return
 
