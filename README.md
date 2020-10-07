@@ -15,6 +15,7 @@
   
 ## Demo
 - Demo Application (powered by Firebase): https://prior-solution.web.app/
+  Account for test => email: admin@ponteprestaurant.com, pass: adminadmin
 - เพิ่มการจอง
 ![เพิ่มการจอง](image/5.png)  
 - ลบการจองได้
