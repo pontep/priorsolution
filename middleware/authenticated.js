@@ -1,5 +1,6 @@
 export default function ({ store, route, redirect }) {
   const user = store.state.users.user
+  console.log(user)
   const blockedRoute = /\/admin\/*/g
   const loginRoute = '/login'
 
