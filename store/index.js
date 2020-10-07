@@ -3,7 +3,7 @@ import cookieparser from 'cookieparser'
 
 export const actions = {
   nuxtClientInit({ commit }, { req }) {
-    console.log('work')
+    console.log(' nuxtClientInit work')
     if (process.server && process.static) return
     if (!req.headers.cookie) return
 
