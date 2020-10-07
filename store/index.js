@@ -17,8 +17,11 @@ export const actions = {
 
     if (!accessTokenCookie) return
 
+    console.log('accessTokenCookie')
+    console.log(accessTokenCookie)
     const decoded = JWTDecode(accessTokenCookie)
     if (decoded) {
+      console.log('WORKSSS')
       commit('users/SET_USER', {
         uid: decoded.user_id,
         email: decoded.email,
