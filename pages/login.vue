@@ -83,7 +83,8 @@ export default {
       await this.$store
         .dispatch('users/login', this.account)
         .then(() => {
-          this.$router.go('/admin')
+          // this.$router.go('/admin') => not work
+          window.location.replace('/admin')
         })
         .catch((error) => {
           this.isError = true
