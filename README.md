@@ -10,7 +10,7 @@
 ![Business Use Case Diagram](image/business_usecase_diagram.png)
 
 ## Application architechture
-- Front-end: Nuxt.js (SSR)
+- Front-end: Nuxt.js (Client -> Static)
 - Back-end: Firebase/Firestore, Authentication, Functions
   
 ## Demo
